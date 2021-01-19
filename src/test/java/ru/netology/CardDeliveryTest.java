@@ -36,10 +36,10 @@ public class CardDeliveryTest {
         LocalDate dateTest = date.plusDays(7);
         $("[data-test-id='date'] input").click();
         if (dateTest.getYear() > currentDate.getYear()) {
-            $("[data-step=\"12\"]").click();
+            $("[data-step='12']").click();
         }
         if (!dateTest.getMonth().equals(currentDate.getMonth())) {
-            $("[data-step=\"1\"]").click();
+            $("[data-step='1']").click();
         }
         $("table").findElement(withText(String.valueOf(dateTest.getDayOfMonth()))).click();
         $("[data-test-id='name'] input").setValue(name);
