@@ -16,7 +16,6 @@ import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
 public class CardDeliveryTest {
-    LocalDate date = LocalDate.now();
 
     @BeforeEach
     void openWeb() {
