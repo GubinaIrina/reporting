@@ -10,7 +10,6 @@ import java.time.LocalDate;
 @RequiredArgsConstructor
 public class UserDataForDelivery {
     private final String city;
-    private final LocalDate date;
     private final String name;
     private final String phone;
 }

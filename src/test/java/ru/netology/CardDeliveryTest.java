@@ -1,17 +1,11 @@
 package ru.netology;
 
-import com.github.javafaker.Faker;
 import lombok.val;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.openqa.selenium.Keys;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.Locale;
-
 import static com.codeborne.selenide.Condition.*;
-import static com.codeborne.selenide.Selectors.withText;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
 
@@ -27,8 +21,7 @@ public class CardDeliveryTest {
         val userData = DataGenerator.generateByGeneralData("ru");
         $("[data-test-id='city'] input").setValue(userData.getCity());
         $("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
-        $("[data-test-id='date'] input").setValue(userData.getDate()
-                .format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        $("[data-test-id='date'] input").setValue(DataGenerator.DateMeeting(4));
         $("[data-test-id='name'] input").setValue(userData.getName());
         $("[data-test-id='phone'] input").setValue(userData.getPhone());
         $("[data-test-id='agreement']").click();
@@ -36,11 +29,10 @@ public class CardDeliveryTest {
 
         $("[data-test-id='success-notification']").waitUntil(visible, 15000)
                 .shouldHave(exactText("Успешно! Встреча успешно запланирована на " +
-                        userData.getDate().format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))));
+                        DataGenerator.DateMeeting(4)));
 
         $("[data-test-id='date'] input").doubleClick().sendKeys(Keys.BACK_SPACE);
-        $("[data-test-id='date'] input").setValue(userData.getDate().plusDays(6)
-                .format(DateTimeFormatter.ofPattern("dd.MM.yyyy")));
+        $("[data-test-id='date'] input").setValue(DataGenerator.DateMeeting(6));
         $("button.button").click();
 
         $("[data-test-id='replan-notification']").waitUntil(visible, 15000)
@@ -49,6 +41,6 @@ public class CardDeliveryTest {
         $("[data-test-id='replan-notification'] button").click();
         $("[data-test-id='success-notification']").waitUntil(visible, 15000)
                 .shouldHave(exactText("Успешно! Встреча успешно запланирована на " +
-                        userData.getDate().plusDays(6).format(DateTimeFormatter.ofPattern("dd.MM.yyyy"))));
+                        DataGenerator.DateMeeting(6)));
     }
 }
